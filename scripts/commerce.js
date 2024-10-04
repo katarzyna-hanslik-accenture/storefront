@@ -194,7 +194,7 @@ export async function performMonolithGraphQLQuery(query, variables, GET = true, 
         method: 'POST',
         headers,
         body: JSON.stringify({
-          query: query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' ')
+          query: query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' '),
         }),
       });
     }
