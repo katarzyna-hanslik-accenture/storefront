@@ -180,7 +180,8 @@ export async function performMonolithGraphQLQuery(query, variables, GET = true, 
 
   let response;
   if (!GET) {
-    response = await fetch(GRAPHQL_ENDPOINT, {
+    if (variables.cartId !== undefined) {
+      response = await fetch(GRAPHQL_ENDPOINT, {
       method: 'POST',
       headers,
       body: JSON.stringify({
@@ -188,6 +189,15 @@ export async function performMonolithGraphQLQuery(query, variables, GET = true, 
         variables,
       }),
     });
+    } else {
+      response = await fetch(GRAPHQL_ENDPOINT, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        query: query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' ')
+      }),
+    });
+    }
   } else {
     const endpoint = new URL(GRAPHQL_ENDPOINT);
     endpoint.searchParams.set('query', query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' '));
