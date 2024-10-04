@@ -182,21 +182,21 @@ export async function performMonolithGraphQLQuery(query, variables, GET = true, 
   if (!GET) {
     if (variables.cartId !== undefined) {
       response = await fetch(GRAPHQL_ENDPOINT, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        query: query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' '),
-        variables,
-      }),
-    });
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          query: query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' '),
+          variables,
+        }),
+      });
     } else {
       response = await fetch(GRAPHQL_ENDPOINT, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        query: query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' ')
-      }),
-    });
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          query: query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' ')
+        }),
+      });
     }
   } else {
     const endpoint = new URL(GRAPHQL_ENDPOINT);
